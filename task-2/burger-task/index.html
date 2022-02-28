@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burger configurator</title>
+</head>
+
+<body>
+    <form class="burger" onsubmit="return false;">
+        <fieldset class="burger__size">
+            <legend class="burger__legend">Size</legend>
+
+            <label class="burger__label" for="large">Большой</label>
+            <input class="burger__radio-input" type="radio" id="large" name="size" value="large" data-price="100"
+                data-calories="40" checked>
+
+            <label class="burger__label" for="small">Маленький</label>
+            <input class="burger__radio-input" type="radio" id="small" name="size" value="small" data-price="50"
+                data-calories="20">
+        </fieldset>
+
+        <fieldset class="burger__filling">
+            <legend class="burger__legend">Начинка</legend>
+
+            <label class="burger__label" for="cheese">Сыр</label>
+            <input class="burger__radio-input" type="radio" id="cheese" name="filling" value="cheese" data-price="10"
+                data-calories="20" checked>
+
+            <label class="burger__label" for="salad">Салат</label>
+            <input class="burger__radio-input" type="radio" id="salad" name="filling" value="salad" data-price="20"
+                data-calories="5">
+
+            <label class="burger__label" for="potato">Картофель</label>
+            <input class="burger__radio-input" type="radio" id="potato" name="filling" value="potato" data-price="15"
+                data-calories="10">
+        </fieldset>
+
+        <fieldset class="burger__additives">
+            <legend class="burger__legend">Добавки</legend>
+
+            <label class="burger__label" for="seasoning">Приправа</label>
+            <input class="burger__checkbox" type="checkbox" id="seasoning" name="additives" value="seasoning"
+                data-price="15" data-calories="0" checked>
+
+            <label class="burger__label" for="mayonnaise">Майонез</label>
+            <input class="burger__checkbox" type="checkbox" id="mayonnaise" name="additives" value="mayonnaise"
+                data-price="20" data-calories="5" checked>
+        </fieldset>
+
+        <button class="burger__button">Рассчитать</button>
+    </form>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
