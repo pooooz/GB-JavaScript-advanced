@@ -5,31 +5,29 @@ class Order {
         this.parameters = [...form.elements.size, ...form.elements.filling, ...form.elements.additives]
             .filter(element => element.checked);
 
-        this.createOrder();
+        this._createOrder();
     }
 
-    createOrder() {
+    _createOrder() {
         const size = this.parameters[0].labels[0].textContent;
         const filling = this.parameters[1].labels[0].textContent;
         const additives = this.parameters.filter(element => element.name == "additives")
             .map(element => element.labels[0].textContent);
-        const price = this.calculatePrice(this.parameters);
-        const calories = this.calculateCalories(this.parameters)
+        const price = this._calculatePrice(this.parameters);
+        const calories = this._calculateCalories(this.parameters)
 
         const burger = new Burger(size, filling, additives, price, calories);
         console.log(burger);
         burger.info();
     }
 
-    calculatePrice() {
+    _calculatePrice() {
         return this.parameters
-            .filter(element => element.checked)
             .reduce((acc, element) => acc + Number(element.dataset.price), 0);
     }
 
-    calculateCalories() {
+    _calculateCalories() {
         return this.parameters
-            .filter(element => element.checked)
             .reduce((acc, element) => acc + Number(element.dataset.calories), 0);
     }
 }
@@ -43,11 +41,11 @@ class Burger {
         this.calories = calories;
     }
 
-    getPrice() {
+    _getPrice() {
         return this.price;
     }
     
-    getCalories() {
+    _getCalories() {
         return this.calories;
     }
 
@@ -55,8 +53,8 @@ class Burger {
         console.log(`Размер бургера: ${this.size} ` + 
             `\nНачинка бургера: ${this.filling}` +
             `\nДобавки бургера: ${this.additives.join(", ")}` +
-            `\n\nБургер содержит ${this.getCalories()} калорий` + 
-            ` и стоит ${this.getPrice()} рублей`);
+            `\n\nБургер содержит ${this._getCalories()} калорий` + 
+            ` и стоит ${this._getPrice()} рублей`);
     }
 }
 
