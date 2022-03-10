@@ -36,7 +36,7 @@ class ProductItem {
     this.img = img;
   }
   render(){
-    return `<div class="product-item" data-id="${this.id}">
+    return `<div class="product-item" data-id="${this.id}" data-name="${this.title} data-price="${this.price} ">
             <img src="${this.img}" alt="Some img">
             <div class="desc">
                 <h3>${this.title}</h3>
