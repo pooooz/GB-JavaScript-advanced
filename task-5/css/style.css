@@ -139,6 +139,7 @@ img {
 }
 
 .cart-item img {
+    max-width: 50%;
     align-self: flex-start;
     margin-right: 15px;
 }

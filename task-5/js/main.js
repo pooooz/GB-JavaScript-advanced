@@ -4,8 +4,11 @@ const app = new Vue({
   el: '#app',
   data: {
     catalogUrl: '/catalogData.json',
+    cartUrl: '/getBasket.json',
     products: [],
     filtered: [],
+    isVisibleCart: false,
+    cart: [],
     imgCatalog: 'https://via.placeholder.com/200x150',
     userSearch: '',
     show: false
@@ -26,7 +29,27 @@ const app = new Vue({
     },
 
     addProduct(product) {
-      console.log(product.id_product);
+      const find = this.cart.find(item => product.id_product === item.id_product);
+      if (find) {
+        find.quantity++;
+      } else {
+        const element = Object.assign({quantity: 1}, product);
+        this.cart.push(element);
+      }
+    },
+
+    removeProduct(product) {
+      const find = this.cart.find(item => product.id_product === item.id_product);
+      if (find.quantity > 1) {
+        find.quantity--;
+      } else {
+        find.quantity--;
+        this.cart.splice(this.cart.indexOf(product), 1);
+      }
+    },
+
+    changeCartVisibility() {
+      this.isVisibleCart = !this.isVisibleCart;
     }
   },
 
@@ -35,13 +58,23 @@ const app = new Vue({
       .then(data => {
         for (let el of data) {
           this.products.push(el);
+          this.filtered.push(el);
         }
       });
+
+    this.getJson(`${API + this.cartUrl}`)
+      .then(data => {
+        for (let cartItem of data.contents) {
+          this.cart.push(cartItem);
+        }
+      });
+
     this.getJson(`getProducts.json`)
       .then(data => {
         for (let el of data) {
           this.products.push(el);
+          this.filtered.push(el);
         }
-      })
+      });
   }
 })
