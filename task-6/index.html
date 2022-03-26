@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
@@ -13,12 +13,7 @@
     <header>
         <div class="logo">E-shop</div>
         <div class="cart">
-            <form action="#" class="search-form" @submit.prevent="filter">
-                <input type="text" class="search-field" v-model="userSearch">
-                <button type="submit" class="btn-search">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
+            <my-filter @filter="filter"></my-filter>
             <button class="btn-cart" type="button" @click="showCart = !showCart">Корзина</button>
             <cart :cart-items="cartItems" :img="imgCart" :visibility="showCart"></cart>
         </div>
@@ -26,6 +21,8 @@
     <main>
         <products :products="filtered" :img="imgProduct" @add-product="addProduct"></products>
     </main>
+    <error v-if="error" :error-name="errorName" :error-message="errorMessage"
+           :error-description="errorDescription"></error>
 </div>
 
 <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
@@ -34,6 +31,9 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="js/ProductComponent.js"></script>
 <script src="js/CartComponent.js"></script>
+<script src="js/MyFilter.js"></script>
+<script src="js/Error.js"></script>
+
 <script src="js/main.js"></script>
 </body>
 

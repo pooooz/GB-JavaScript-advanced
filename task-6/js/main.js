@@ -4,7 +4,6 @@ const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-a
 const app = new Vue({
   el: '#app',
   data: {
-    userSearch: '',
     showCart: false,
     catalogUrl: '/catalogData.json',
     cartUrl: '/getBasket.json',
@@ -13,14 +12,16 @@ const app = new Vue({
     imgCart: 'https://via.placeholder.com/50x100',
     products: [],
     imgProduct: 'https://via.placeholder.com/200x150',
-    error: false
+    error: false,
+    errorName: "",
+    errorMessage: "",
+    errorDescription: "",
   },
 
   methods: {
     getJson(url) {
       return fetch(url)
-        .then(result => result.json())
-
+        .then(result => result.json());
     },
 
     addProduct(item) {
@@ -50,12 +51,11 @@ const app = new Vue({
               this.cartItems.splice(this.cartItems.indexOf(item), 1);
             }
           }
-
         })
     },
 
-    filter() {
-      let regexp = new RegExp(this.userSearch, 'i');
+    filter(userSearch) {
+      let regexp = new RegExp(userSearch, 'i');
       this.filtered = this.products.filter(el => regexp.test(el.product_name));
     }
   },
@@ -66,6 +66,12 @@ const app = new Vue({
         for (let item of data.contents) {
           this.$data.cartItems.push(item);
         }
+      })
+      .catch(error => {
+        this.error = true;
+        this.errorName = error.name;
+        this.errorMessage = error.message;
+        this.errorDescription = 'Не удалось загрузить товары корзины';
       });
 
     this.getJson(`${API + this.catalogUrl}`)
@@ -74,6 +80,12 @@ const app = new Vue({
           this.$data.products.push(item);
           this.$data.filtered.push(item);
         }
+      })
+      .catch(error => {
+        this.error = true;
+        this.errorName = error.name;
+        this.errorMessage = `${error.message}`;
+        this.errorDescription = 'Не удалось загрузить каталог продуктов';
       });
 
     this.getJson("/getProducts.json")
@@ -82,6 +94,12 @@ const app = new Vue({
           this.$data.products.push(item);
           this.$data.filtered.push(item);
         }
+      })
+      .catch(error => {
+        this.error = true;
+        this.errorName = error.name;
+        this.errorMessage = error.message;
+        this.errorDescription = 'Не удалось загрузить каталог продуктов';
       });
   }
 });
