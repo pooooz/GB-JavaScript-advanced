@@ -9,7 +9,7 @@ let change = (cart, req) => {
   let find = cart.contents.find(el => el.id_product === +req.params.id);
   find.quantity += req.body.quantity;
   cart.countGoods += req.body.quantity;
-  cart.amount += find.price;
+  cart.amount += find.price * req.body.quantity;
   return JSON.stringify(cart, null, 2);
 };
 
